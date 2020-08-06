@@ -57,5 +57,5 @@ async def my_message(message):
 
     
 
-    
-bot.run('NzM4MjAyNjYwMjI1Njc5NDAx.XyIezQ.UCltl-FRR_ly_O7zRhuYGHCrad4')
+with open('bible_bot_token.txt', 'r') as f:
+    bot.run(f.read().strip())

@@ -1,3 +1,5 @@
 bible_api_key.txt
+bible_bot_token.txt
 __pycache__/
-bible_venv
+bible_venv/
+.vscode/
