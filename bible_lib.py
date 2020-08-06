@@ -1,17 +1,7 @@
 #Bible library
 import requests 
 
-def main():
-    bible = Bible(api_key='9ae9ceb9738443901b5af8767640e8c8')
 
-    verse = input("Input a bible verse")
-
-    book, verse = verse.split(" ")
-    chapter, verse = verse.split(":")
-    print(book, chapter, verse)
-
-    print(bible.get_verses(book_name=book, chapter=chapter, verse=verse))
-    
 class Bible:
     known_bibles = {"KJV": "de4e12af7f28f599-02", "DRA": "179568874c45066f-01"}
 
@@ -51,6 +41,8 @@ class Bible:
         
     def is_book(self, book_name):
         return book_name.lower() in self.api.get_book_names(self.bible_id).keys()
+    def get_books(self):
+        return [item.lower() for item in self.api.get_book_names(self.bible_id).keys()]
 
 class BibleAPI:
 
@@ -92,9 +84,8 @@ class BibleAPI:
     def get_verse_names(self, bible_id="", chapter_id=""):
         verses = dict() 
         for verse in self.get_verses(bible_id=bible_id, chapter_id=chapter_id)['data']:
-            verses[verse.get("reference")] = verse.get("id")
+            verses[verse.get("reference").lower()] = verse.get("id")
         return verses
 
     def get_passage(self, bible_id="", passage_id="", params={"content-type": "text", "include-verse-numbers": True}):
         return requests.get(f'https://api.scripture.api.bible/v1/bibles/{bible_id}/passages/{passage_id}', params=params, headers=self.headers).json()
-main()
