@@ -59,4 +59,3 @@ class BibleAPI:
         for verse in self.get_verses(bible_id=bible_id, chapter_id=chapter_id)['data']:
             verses[verse.get("reference")] = verse.get("id")
         return verses
-main()   
